@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        zero: "#d0ded8",
         one: "#C5FDD3",
         two: "#94E184",
         three: "#69C5A0",
@@ -30,6 +31,10 @@ module.exports = {
           from: { opacity: "0", transform: "translateX(40px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+      },
+      backdropFilter: {
+        'none': 'none',
+        'blur': 'blur(20px)',
       },
     },
     screens: {
