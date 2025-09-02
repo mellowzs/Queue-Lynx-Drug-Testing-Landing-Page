@@ -44,7 +44,7 @@ function AboutUs() {
               uniquely focused to serve our clients with pride and
               professionalism, not to welcome any corrupt practices laboratory
               personnel with bribe and anomalous attitude. enticing our
-              laboratory personnel with bribe and anomalous attitude.
+              laboratory personnel with bribe and anomalous attitude .
             </p>
           </div>
 
