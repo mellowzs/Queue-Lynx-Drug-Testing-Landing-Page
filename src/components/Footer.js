@@ -11,7 +11,7 @@ function Footer() {
           <div className="space-y-6">
             <img src={Logo} alt="Queue Lynx Logo" className="h-28" />
             <p className="text-gray-300 max-w-xl">
-              Providing efficient and reliable drug testing services with a commitment to quality and professionalism.
+              Providing efficient and reliable drug testing services with a commitment to quality and professionalism for over 15 years.
             </p>
             <div className="flex space-x-4">
               <a href="https://facebook.com/QueuelynxDTL" 

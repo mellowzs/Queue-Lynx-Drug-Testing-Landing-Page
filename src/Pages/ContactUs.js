@@ -51,7 +51,7 @@ function ContactUs() {
     <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4 bg-six">
       <div className="w-full max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">Get in Touch</h2>
+          <h2 id="contactUs" className="text-4xl font-bold text-white mb-4">Get in Touch</h2>
           <p className="text-gray-300 text-lg">We'd love to hear from you</p>
         </div>
 

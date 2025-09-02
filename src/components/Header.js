@@ -7,19 +7,26 @@ function Header() {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navbarHeight = 120; // Adjust this to your navbar height
+
   const handleNavigation = useCallback(
     (section) => {
       if (window.location.pathname !== "/") {
         navigate("/", { state: { scrollTo: section } });
       } else {
-        document
-          .getElementById(section)
-          ?.scrollIntoView({ behavior: "smooth" });
+        const targetElement = document.getElementById(section);
+
+        if (targetElement) {
+          const offsetTop = targetElement.offsetTop - navbarHeight;
+          window.scrollTo({ top: offsetTop, behavior: "smooth" });
+        }
       }
+
       setIsMenuOpen(false);
     },
     [navigate]
   );
+
 
   const navigationItems = [
     {
@@ -36,7 +43,7 @@ function Header() {
     {
       id: "contact",
       label: "Contact",
-      action: () => handleNavigation("contact"),
+      action: () => handleNavigation("contactUs"),
     },
     {
       id: "services",
@@ -68,11 +75,15 @@ function Header() {
     <div
       className={`fixed top-0 left-0 right-0 z-50 sm:h-16 bg-zero mt-5 sm:mt-3 mx-3 
         transition-[border-radius] duration-100 ease-in-out
-        ${isMenuOpen ? "rounded-t-3xl rounded-b-none" : "rounded-3xl delay-[250ms]"}`}
+        ${
+          isMenuOpen
+            ? "rounded-t-3xl rounded-b-none"
+            : "rounded-3xl delay-[250ms]"
+        }`}
     >
       <div className="flex items-center justify-between px-4 py-2">
         {/* Logo */}
-        <div onClick={() => navigate("/")} className="cursor-pointer">
+        <div id="logo" onClick={() => navigate("/")} className="cursor-pointer">
           <img src={Logo} alt="Logo" className="h-12 lg:h-16 ml-5" />
         </div>
 
