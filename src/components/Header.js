@@ -41,21 +41,20 @@ function Header() {
       action: () => handleNavigation("aboutUs"),
     },
     {
-      id: "contact",
-      label: "Contact",
-      action: () => handleNavigation("contactUs"),
-    },
-    {
       id: "services",
       label: "Services",
       action: () => handleNavigation("services"),
     },
+    {
+      id: "contact",
+      label: "Contact",
+      action: () => handleNavigation("contactUs"),
+    },
   ];
 
-  const commonButtonClasses =
-    "text-seven text-xl font-bold transition-all duration-300";
-  const desktopButtonClasses = `${commonButtonClasses} relative hover:text-one after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-secondary after:transition-all after:duration-300 hover:after:w-full`;
-  const mobileButtonClasses = `${commonButtonClasses} py-4 px-6 hover:bg-one hover:text-zero transform hover:pl-12 text-center`;
+  const commonButtonClasses ="text-seven text-xl font-bold transition-all duration-300";
+  const desktopButtonClasses = `${commonButtonClasses} relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-black after:transition-transform after:duration-300 hover:after:scale-x-100`;
+  const mobileButtonClasses = `${commonButtonClasses} py-4 px-6 hover:bg-none hover:text-none transform hover:pl-12 text-center`;
 
   const renderNavigationButton = (item, isMobile = false) => {
     if (item.showOnlyOutsideHome && location.pathname === "/") return null;
@@ -83,13 +82,13 @@ function Header() {
     >
       <div className="flex items-center justify-between px-4 py-2">
         {/* Logo */}
-        <div id="logo" onClick={() => navigate("/")} className="cursor-pointer">
+        <div id="logo" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="cursor-pointer">
           <img src={Logo} alt="Logo" className="h-12 lg:h-16 ml-5" />
         </div>
 
         {/* Hamburger Menu */}
         <button
-          className="lg:hidden text-white p-2"
+          className="lg:hidden text-black p-2"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >

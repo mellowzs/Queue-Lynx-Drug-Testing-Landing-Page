@@ -1,71 +1,127 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { FaBullseye, FaEye, FaChartLine } from "react-icons/fa";
 
-function AboutUs() {
+function About() {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="bg-one py-10 rounded-tr-[450px] rounded-br-[200px] sm:rounded-tr-[250px]">
-      <div className="mx-6">
-        <h1
-          id="aboutUs"
-          className="text-4xl font-bold text-seven ml-10 mb-4 py-8"
+    <div id="aboutUs" className="relative min-h-screen bg-seven py-20 px-6 sm:px-4">
+
+      {/* Title */}
+      <motion.h2
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={cardVariants}
+        transition={{ duration: 0.8 }}
+        className="text-4xl sm:text-2xl font-extrabold text-center text-white mb-12 drop-shadow-lg"
+      >
+        About <span className="text-cyan-400">Queue Lynx</span>
+      </motion.h2>
+
+      {/* About Short Tagline */}
+      <motion.p
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={cardVariants}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="max-w-4xl mx-auto text-gray-300 text-lg sm:text-base text-center mb-8 leading-relaxed"
+      >
+        Queue Lynx is dedicated to providing efficient and reliable drug testing
+        services. We specialize in Remote Collection Operation (RCO) / Mobile
+        testing. Instead of coming to us, we come to you — directly at your
+        workplace — saving valuable time, reducing disruptions, and boosting
+        productivity.
+      </motion.p>
+
+      {/* About Long Paragraph (15 years of service) */}
+      <motion.p
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={cardVariants}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="max-w-5xl mx-auto text-gray-300 text-lg sm:text-base text-center mb-16 leading-relaxed"
+      >
+        Queue Lynx has been proudly serving the community for over{" "}
+        <span className="text-cyan-400 font-semibold">15 years</span>, offering
+        trusted, reliable, and accurate drug testing services. Throughout this
+        time, we have remained dedicated to ensuring the safety, well-being, and
+        integrity of individuals and organizations alike. By providing
+        comprehensive testing solutions, we contribute to fostering safer, more
+        responsible environments for workplaces, schools, and community
+        settings. Our commitment to excellence and precision continues to make
+        us a leading choice for dependable drug testing services.
+      </motion.p>
+
+      {/* Mission, Vision, Objectives */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        {/* Mission */}
+        <motion.div
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="bg-white/10 backdrop-blur-md rounded-2xl p-8 text-center shadow-xl hover:scale-[1.03] transition-transform duration-300"
         >
-          About Us
-        </h1>
-        <p className="text-seven-300 text-lg ml-10 text-justify pr-28 ">
-          Queue Lynx has been proudly serving the community for over 15 years,
-          offering trusted, reliable, and accurate drug testing services.
-          Throughout this time, we have remained dedicated to ensuring the
-          safety, well-being, and integrity of individuals and organizations
-          alike. By providing comprehensive testing solutions, we contribute to
-          fostering safer, more responsible environments for workplaces,
-          schools, and various community settings. Our commitment to excellence
-          and precision continues to make us a leading choice for those seeking
-          dependable drug testing services.
-        </p>
-        <div className="gap-6 flex flex-row justify-center py-14 pr-20 text-center">
-          {/* Card 1: Our Mission */}
-          <div className="flex flex-col border rounded-[50px] bg-white px-7 py-4 shadow-xl hover:shadow-2xl hover:translate-y-[-10px] transition-all ease-in-out duration-500">
-            <h2 className="text-3xl font-bold text-seven mb-4 ">Our Mission</h2>
-            <p className="text-seven-300 text-lg text-justify">
-              highest It is the mission of Queue Lynx Drug Testing Laboratory to
-              deliver to our clients on a timely manner with credible and
-              reliable data that was collected according to the standards as to
-              reliability and quality drug test ,through constant innovation
-              with the help of modern technology and to enhance the community to
-              have a drug free environment.
-            </p>
-          </div>
+          <FaBullseye className="text-cyan-400 text-5xl mx-auto mb-6" />
+          <h3 className="text-xl font-bold text-white mb-4">Mission</h3>
+          <p className="text-gray-300 leading-relaxed">
+            It is the mission of Queue Lynx Drug Testing Laboratory to deliver
+            timely, credible, and reliable data collected according to strict
+            standards of reliability and quality. Through innovation and modern
+            technology, we aim to enhance the community and promote a drug-free
+            environment.
+          </p>
+        </motion.div>
 
-          {/* Card 2: Our Vision */}
-          <div className="flex flex-col border rounded-[50px] bg-white px-7 py-4 shadow-xl hover:shadow-2xl hover:translate-y-[-10px] transition-all ease-in-out duration-500">
-            <h2 className="text-3xl font-bold text-seven mb-4 ">Our Vision</h2>
-            <p className="text-seven-300 text-lg text-justify">
-              Queue Lynx Drug Testing Laboratory is committed to becoming one of
-              the top drug laboratories nationwide by being client oriented
-              uniquely focused to serve our clients with pride and
-              professionalism, not to welcome any corrupt practices laboratory
-              personnel with bribe and anomalous attitude. enticing our
-              laboratory personnel with bribe and anomalous attitude.
-            </p>
-          </div>
+        {/* Vision */}
+        <motion.div
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="bg-white/10 backdrop-blur-md rounded-2xl p-8 text-center shadow-xl hover:scale-[1.03] transition-transform duration-300"
+        >
+          <FaEye className="text-cyan-400 text-5xl mx-auto mb-6" />
+          <h3 className="text-xl font-bold text-white mb-4">Vision</h3>
+          <p className="text-gray-300 leading-relaxed">
+            Queue Lynx Drug Testing Laboratory is committed to becoming one of
+            the top drug testing laboratories nationwide by being client-oriented,
+            professional, and ethical — rejecting any corrupt practices and
+            fostering a culture of pride and integrity.
+          </p>
+        </motion.div>
 
-          {/* Card 3: Our Objectives */}
-          <div className="flex flex-col border rounded-[50px] bg-white px-7 py-4 shadow-xl hover:shadow-2xl hover:translate-y-[-10px] transition-all ease-in-out duration-500">
-            <h2 className="text-3xl font-bold text-seven mb-4 ">
-              Our Objectives
-            </h2>
-            <p className="text-seven-300 text-lg text-justify">
-              Queue Lynx Drug Testing Laboratory shall constantly ensure a drug
-              test result with utmost reliability and integrity. Proper
-              implementation of quality control shall be done by the management
-              to uphold its task as its mission, vision and for its advocacy to
-              ensure the regulatory and international standards are complied in
-              the implementation of the quality systems.
-            </p>
-          </div>
-        </div>
+        {/* Objectives */}
+        <motion.div
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="bg-white/10 backdrop-blur-md rounded-2xl p-8 text-center shadow-xl hover:scale-[1.03] transition-transform duration-300"
+        >
+          <FaChartLine className="text-cyan-400 text-5xl mx-auto mb-6" />
+          <h3 className="text-xl font-bold text-white mb-4">Objectives</h3>
+          <p className="text-gray-300 leading-relaxed">
+            Queue Lynx Drug Testing Laboratory shall constantly ensure drug test
+            results with utmost reliability and integrity. Proper quality control
+            shall be implemented by management to uphold our mission, vision,
+            and advocacy, ensuring compliance with regulatory and international
+            standards.
+          </p>
+        </motion.div>
       </div>
     </div>
   );
 }
 
-export default AboutUs;
+export default About;
