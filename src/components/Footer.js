@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Assets/H_QL_Logo.png';
+import DOH from '../Assets/DOH.png';
 
 function Footer() {
   return (
@@ -9,7 +10,10 @@ function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column - Logo and Description */}
           <div className="space-y-6">
-            <img src={Logo} alt="Queue Lynx Logo" className="h-28" />
+            <div className='flex flex-row space-x-6 items-center'>
+              <img src={DOH} alt="Department of Health Logo" className="h-20 mt-2" />
+              <img src={Logo} alt="Queue Lynx Logo" className="h-28" />
+            </div>
             <p className="text-gray-300 max-w-xl">
               Providing efficient and reliable drug testing services with a commitment to quality and professionalism for over 15 years.
             </p>
@@ -32,8 +36,8 @@ function Footer() {
               <h3 className="text-white font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/" className="text-gray-300 hover:text-secondary transition-colors">
-                    Home
+                  <Link to="/form" className="text-gray-300 hover:text-secondary transition-colors">
+                    Form
                   </Link>
                 </li>
                 <li>

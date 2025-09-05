@@ -30,13 +30,24 @@ function About() {
         viewport={{ once: true, amount: 0.3 }}
         variants={cardVariants}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="max-w-4xl mx-auto text-gray-300 text-lg sm:text-base text-center mb-8 leading-relaxed"
+        className="max-w-4xl mx-auto text-gray-300 text-lg sm:text-base text-center mb-4 leading-relaxed"
       >
         Queue Lynx is dedicated to providing efficient and reliable drug testing
         services. We specialize in Remote Collection Operation (RCO) / Mobile
         testing. Instead of coming to us, we come to you — directly at your
         workplace — saving valuable time, reducing disruptions, and boosting
         productivity.
+      </motion.p>
+
+      {/* DOH Accredited Badge */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="text-white text-center font-semibold bg-green-600 rounded-full px-4 py-2 mx-auto mb-8 shadow-lg w-fit"
+      >
+        DOH Accredited
       </motion.p>
 
       {/* About Long Paragraph (15 years of service) */}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { PDFDocument, StandardFonts } from "pdf-lib";
 import SignaturePad from "signature_pad";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 function LivePdfForm() {
   const canvasRef = useRef(null);
@@ -141,191 +142,191 @@ function LivePdfForm() {
   };
 
   return (
-    <div className="flex flex-col-2 sm:flex-col gap-6 p-6 pt-40">
-        <Header />
-      {/* Form */}
-      <form className="w-1/2 sm:w-1/3 bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
+    <div>
+      <Header />
+      <div className="flex flex-row sm:flex-col gap-6 p-6 pt-40">
+        {/* Form */}
+        <form className="w-1/2 sm:w-full bg-white shadow-lg rounded-xl p-6 space-y-6">
+          <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
 
-        {/* Two-column grid inside form */}
-        <div className="grid grid-cols-1 gap-4">
-          <div className="grid grid-cols-2 gap-2">
+          {/* Two-column grid inside form */}
+          <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-1 gap-2">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="middleName"
+                placeholder="Middle Name"
+                value={formData.middleName}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              />
+            </div>
+
             <input
               type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
               onChange={handleChange}
               className="border p-2 rounded"
             />
+
             <input
               type="text"
-              name="middleName"
-              placeholder="Middle Name"
-              value={formData.middleName}
+              name="address"
+              placeholder="Address"
+              value={formData.address}
               onChange={handleChange}
               className="border p-2 rounded"
             />
-          </div>
 
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            value={formData.lastName}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                type="date"
+                name="birthdate"
+                value={formData.birthdate}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="number"
+                name="age"
+                placeholder="Age"
+                value={formData.age}
+                readOnly
+                className="border p-2 rounded bg-gray-100"
+              />
+            </div>
 
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={formData.address}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
-
-          <div className="grid grid-cols-2 gap-2">
             <input
-              type="date"
-              name="birthdate"
-              value={formData.birthdate}
+              type="text"
+              name="birthplace"
+              placeholder="Birthplace"
+              value={formData.birthplace}
               onChange={handleChange}
               className="border p-2 rounded"
             />
+
+            <div className="grid grid-cols-2 gap-2">
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              >
+                <option value="">Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+
+              <select
+                name="civilStatus"
+                value={formData.civilStatus}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              >
+                <option value="">Civil Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Divorced">Divorced</option>
+              </select>
+            </div>
+
             <input
-              type="number"
-              name="age"
-              placeholder="Age"
-              value={formData.age}
-              readOnly
-              className="border p-2 rounded bg-gray-100"
+              type="text"
+              name="companyName"
+              placeholder="Company Name"
+              value={formData.companyName}
+              onChange={handleChange}
+              className="border p-2 rounded"
             />
-          </div>
 
-          <input
-            type="text"
-            name="birthplace"
-            placeholder="Birthplace"
-            value={formData.birthplace}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
-
-          <div className="grid grid-cols-2 gap-2">
             <select
-              name="gender"
-              value={formData.gender}
+              name="purpose"
+              value={formData.purpose}
               onChange={handleChange}
               className="border p-2 rounded"
             >
-              <option value="">Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="">Purpose of Drug Test</option>
+              <option value="Pre-employment">Pre-employment</option>
+              <option value="Random">Random</option>
+              <option value="Return-to-duty">Return-to-duty</option>
+              <option value="Follow-up">Follow-up</option>
             </select>
 
-            <select
-              name="civilStatus"
-              value={formData.civilStatus}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            >
-              <option value="">Civil Status</option>
-              <option value="Single">Single</option>
-              <option value="Married">Married</option>
-              <option value="Widowed">Widowed</option>
-              <option value="Divorced">Divorced</option>
-            </select>
+            <div className="grid grid-cols-2 gap-2">
+              <select
+                name="validIdType"
+                value={formData.validIdType}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              >
+                <option value="">Valid ID Type</option>
+                <option value="Passport">Passport</option>
+                <option value="Driver's License">Driver's License</option>
+                <option value="SSS">SSS</option>
+                <option value="PhilHealth">PhilHealth</option>
+                <option value="Voter's ID">Voter's ID</option>
+              </select>
+              <input
+                type="text"
+                name="validIdNumber"
+                placeholder="ID Number"
+                value={formData.validIdNumber}
+                onChange={handleChange}
+                className="border p-2 rounded"
+              />
+            </div>
           </div>
 
-          <input
-            type="text"
-            name="companyName"
-            placeholder="Company Name"
-            value={formData.companyName}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          />
+          {/* Signature */}
+          <div>
+            <p className="font-semibold mb-2">Signature</p>
+            <canvas ref={canvasRef} className="border rounded"></canvas>
+            <div className="flex gap-2 mt-2">
+              <button
+                type="button"
+                onClick={saveSignature}
+                className="px-3 py-1 bg-green-500 text-white rounded"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={clearSignature}
+                className="px-3 py-1 bg-red-500 text-white rounded"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </form>
 
-          <select
-            name="purpose"
-            value={formData.purpose}
-            onChange={handleChange}
-            className="border p-2 rounded"
-          >
-            <option value="">Purpose of Drug Test</option>
-            <option value="Pre-employment">Pre-employment</option>
-            <option value="Random">Random</option>
-            <option value="Return-to-duty">Return-to-duty</option>
-            <option value="Follow-up">Follow-up</option>
-          </select>
-
-          <div className="grid grid-cols-2 gap-2">
-            <select
-              name="validIdType"
-              value={formData.validIdType}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            >
-              <option value="">Valid ID Type</option>
-              <option value="Passport">Passport</option>
-              <option value="Driver's License">Driver's License</option>
-              <option value="SSS">SSS</option>
-              <option value="PhilHealth">PhilHealth</option>
-              <option value="Voter's ID">Voter's ID</option>
-            </select>
-            <input
-              type="text"
-              name="validIdNumber"
-              placeholder="ID Number"
-              value={formData.validIdNumber}
-              onChange={handleChange}
-              className="border p-2 rounded"
+        {/* PDF Preview */}
+        <div className="flex-1 w-1/2 sm:w-full bg-gray-100 shadow-lg rounded-xl p-4">
+          {pdfUrl ? (
+            <embed
+              src={pdfUrl}
+              title="PDF Preview"
+              className="w-full h-[900px] border rounded"
             />
-          </div>
+          ) : (
+            <p className="text-gray-500 flex items-center justify-center h-full">
+              PDF preview will appear here...
+            </p>
+          )}
         </div>
-
-        {/* Signature */}
-        <div>
-          <p className="font-semibold mb-2">Signature</p>
-          <canvas
-            ref={canvasRef}
-            className="border rounded"
-          ></canvas>
-          <div className="flex gap-2 mt-2">
-            <button
-              type="button"
-              onClick={saveSignature}
-              className="px-3 py-1 bg-green-500 text-white rounded"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={clearSignature}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
-              Clear
-            </button>
-          </div>
-        </div>
-      </form>
-
-      {/* PDF Preview */}
-      <div className="flex-1 w-1/2 bg-gray-100 shadow-lg rounded-xl p-4">
-        {pdfUrl ? (
-          <iframe
-            src={pdfUrl}
-            title="PDF Preview"
-            className="w-full h-[800px] border rounded"
-          />
-        ) : (
-          <p className="text-gray-500 flex items-center justify-center h-full">
-            PDF preview will appear here...
-          </p>
-        )}
       </div>
+      <Footer />
     </div>
   );
 }

@@ -23,7 +23,7 @@ function Services() {
       </motion.h2>
 
       {/* Service Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-3 max-w-7xl items-center justify-center mx-auto">
+      <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-10 sm:gap-3 max-w-7xl items-center justify-center mx-auto">
         {/* Mobile Collection */}
         <motion.div
           variants={cardVariants}

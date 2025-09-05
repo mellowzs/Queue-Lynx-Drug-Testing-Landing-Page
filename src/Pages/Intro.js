@@ -8,7 +8,7 @@ function Intro() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full mt-56 sm:mt-20">
+    <div className="h-[800px] content-end sm:content-center">
       {/* Title */}
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
@@ -33,12 +33,12 @@ function Intro() {
 
         {/* Right - Short Tagline + Button */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="flex flex-col"
         >
-          <p className="text-white text-xl sm:text-sm px-48 sm:px-6 py-20 sm:py-4 mt-26 sm:mt-4 text-center leading-relaxed">
+          <p className="text-white text-xl sm:text-xs px-48 sm:px-6 py-10 sm:py-4 sm:mt-4 text-center leading-relaxed">
             <span className="font-semibold text-cyan-400">Efficient, Mobile, and Reliable</span>  
             — we bring drug testing directly to your workplace.
           </p>
