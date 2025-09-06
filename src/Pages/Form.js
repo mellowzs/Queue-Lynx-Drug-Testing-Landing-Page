@@ -57,7 +57,7 @@ function LivePdfForm() {
   useEffect(() => {
     const generatePdf = async () => {
       try {
-        const formUrl = "/Form.pdf"; // place form.pdf inside /public
+        const formUrl = "/form.pdf"; // place form.pdf inside /public
         const formPdfBytes = await fetch(formUrl).then((res) =>
           res.arrayBuffer()
         );
@@ -312,7 +312,7 @@ function LivePdfForm() {
         </form>
 
         {/* PDF Preview */}
-        <div className="flex-1 w-1/2 sm:w-full shadow-lg rounded-xl p-4">
+        <div className="flex-1 w-1/2 sm:w-full bg-gray-100 shadow-lg rounded-xl p-4">
           {pdfUrl ? (
             <iframe
               src={pdfUrl}
