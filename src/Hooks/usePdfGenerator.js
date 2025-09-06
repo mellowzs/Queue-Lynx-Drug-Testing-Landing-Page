@@ -9,7 +9,7 @@ export function usePdfGenerator() {
 
   const generatePdf = useCallback(async (formData) => {
     try {
-      const formUrl = "/form.pdf"; // must be in /public
+      const formUrl = "/Form.pdf"; // must be in /public
       const formPdfBytes = await fetch(formUrl).then((res) =>
         res.arrayBuffer()
       );
