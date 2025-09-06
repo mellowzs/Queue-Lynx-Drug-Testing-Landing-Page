@@ -314,7 +314,7 @@ function LivePdfForm() {
         {/* PDF Preview */}
         <div className="flex-1 w-1/2 sm:w-full shadow-lg rounded-xl p-4">
           {pdfUrl ? (
-            <embed
+            <iframe
               src={pdfUrl}
               title="PDF Preview"
               className="w-full h-[900px] border rounded"
