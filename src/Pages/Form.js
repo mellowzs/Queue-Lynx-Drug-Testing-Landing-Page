@@ -57,7 +57,7 @@ function LivePdfForm() {
   useEffect(() => {
     const generatePdf = async () => {
       try {
-        const formUrl = "/form.pdf"; // place form.pdf inside /public
+        const formUrl = "/Form.pdf"; // place form.pdf inside /public
         const formPdfBytes = await fetch(formUrl).then((res) =>
           res.arrayBuffer()
         );
