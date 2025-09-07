@@ -72,7 +72,7 @@ function Header() {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 sm:h-16 bg-zero mt-5 sm:mt-3 mx-3 
+      className={`fixed top-0 left-0 right-0 z-50 h-20 sm:h-16 bg-zero mt-5 sm:mt-3 mx-3
         transition-[border-radius] duration-100 ease-in-out
         ${
           isMenuOpen

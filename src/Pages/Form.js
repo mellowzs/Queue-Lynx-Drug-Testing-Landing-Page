@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer.js";
 import FormFields from "../components/FormFields";
 import SignaturePadField from "../components/SignaturePadField";
 import PdfPreview from "../components/PdfPreview";
@@ -79,6 +79,18 @@ useEffect(() => {
               setFormData((prev) => ({ ...prev, signature: sig }))
             }
           />
+          <div className="pt-24 pb-4 float-end">
+          <button
+            type="button"
+            onClick={async () => {
+              await generatePdf(formData);
+              alert("Form Submitted! You can download it from the preview section.");
+            }}
+            className="bg-blue-600 text-white px-4 py-2 w-32 rounded hover:bg-blue-700 transition left-1/2"
+          >
+            Submit
+          </button>
+          </div>
         </form>
 
         {/* PDF Preview */}
