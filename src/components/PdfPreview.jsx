@@ -39,7 +39,7 @@ export default function PdfPreview({ pdfUrl }) {
         <iframe
           src={pdfUrl}
           title="PDF Preview"
-          className="w-full h-[1000px] border rounded"
+          className="w-full h-[1000px] border rounded mb-36"
         />
       )}
     </div>

@@ -77,65 +77,69 @@ function LivePdfForm() {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="flex flex-row sm:flex-col gap-6 p-6 pt-40">
-        {/* Form */}
-        <form className="w-1/2 sm:w-full bg-white shadow-lg rounded-xl p-6 space-y-6">
-          <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
-          <FormFields formData={formData} handleChange={handleChange} />
-          <SignaturePadField
-            setSignature={(sig) =>
-              setFormData((prev) => ({ ...prev, signature: sig }))
-            }
-          />
-          <div className="flex items-start space-x-2 mt-4 bg-black/10 py-14 rounded-lg">
-            <div className="flex flex-row">
-              <input
-                type="checkbox"
-                id="agreement"
-                name="agreement"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="ml-5 size-6 rounded-lg"
-              />
-              <div className="mx-4">
-                <label
-                  htmlFor="agreement"
-                  className="sm:text-sm text-base text-gray-700 text-justify block"
+  <div className="flex flex-col min-h-screen">
+    <Header />
+
+    {/* Main Content should grow */}
+    <div className="flex flex-row sm:flex-col gap-6 p-6 pt-40 flex-grow">
+      {/* Form */}
+      <form className="w-1/2 sm:w-full bg-white shadow-lg rounded-xl p-6 space-y-6">
+        <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
+        <FormFields formData={formData} handleChange={handleChange} />
+        <SignaturePadField
+          setSignature={(sig) =>
+            setFormData((prev) => ({ ...prev, signature: sig }))
+          }
+        />
+        <div className="flex items-start space-x-2 mt-4 bg-black/10 py-14 rounded-lg">
+          <div className="flex flex-row">
+            <input
+              type="checkbox"
+              id="agreement"
+              name="agreement"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="ml-5 size-6 rounded-lg"
+            />
+            <div className="mx-4">
+              <label
+                htmlFor="agreement"
+                className="sm:text-sm text-base text-gray-700 text-justify block"
+              >
+                I have read the{" "}
+                <a
+                  href="/TOS.pdf"
+                  target="_blank"
+                  className="text-blue-600 underline hover:text-blue-800"
                 >
-                  I have read the{" "}
-                  <a
-                    href="/TOS.pdf"
-                    target="_blank"
-                    className="text-blue-600 underline hover:text-blue-800"
-                  >
-                    Terms and Agreement
-                  </a>
-                   {" "}and agree that my personal information will be collected and
-                  used solely for processing this drug test, kept confidential,
-                  and not disclosed to unauthorized parties.
-                </label>
-              </div>
+                  Terms and Agreement
+                </a>{" "}
+                and agree that my personal information will be collected and
+                used solely for processing this drug test, kept confidential,
+                and not disclosed to unauthorized parties.
+              </label>
             </div>
           </div>
-          <div className="pb-4 float-end">
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition left-1/2"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+        </div>
+        <div className="pb-4 float-end">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition left-1/2"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
 
-        {/* PDF Preview */}
-        <PdfPreview pdfUrl={pdfUrl} />
-      </div>
-      <Footer />
+      {/* PDF Preview */}
+      <PdfPreview pdfUrl={pdfUrl} />
     </div>
-  );
+
+    <Footer />
+  </div>
+);
+
 }
 
 export default LivePdfForm;

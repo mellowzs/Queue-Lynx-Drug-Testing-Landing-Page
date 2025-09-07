@@ -73,11 +73,11 @@ function Header() {
   return (
     <div
       className={`fixed top-0 left-0 right-0 z-50 h-20 sm:h-16 bg-zero mt-5 sm:mt-3 mx-3
-        transition-[border-radius] duration-100 ease-in-out
+        transition-[border-radius] ease-in-out
         ${
           isMenuOpen
-            ? "rounded-t-3xl rounded-b-none"
-            : "rounded-3xl delay-[250ms]"
+            ? "rounded-t-3xl rounded-b-none duration-[25ms]"
+            : "rounded-3xl duration-[500ms] delay-[375ms]"
         }`}
     >
       <div className="flex items-center justify-between px-4 py-2">
@@ -117,11 +117,11 @@ function Header() {
 
       {/* Mobile Navigation */}
       <div
-        className={`lg:hidden bg-zero overflow-hidden origin-top transition-all duration-300 ease-in-out
+        className={`lg:hidden bg-zero overflow-hidden origin-top transition-all duration-500 ease-in-out
           ${
             isMenuOpen
-              ? "transform scale-y-100 opacity-100 rounded-b-3xl delay-[50ms]"
-              : "transform scale-y-0"
+              ? "transform max-h-screen opacity-100 rounded-b-3xl duration-500"
+              : "transform max-h-0"
           }`}
       >
         <nav className="px-7">
