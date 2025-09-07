@@ -5,6 +5,7 @@ import FormFields from "../components/FormFields";
 import SignaturePadField from "../components/SignaturePadField";
 import PdfPreview from "../components/PdfPreview";
 import { usePdfGenerator } from "../Hooks/usePdfGenerator";
+import { motion } from "framer-motion";
 
 function LivePdfForm() {
   const [agreed, setAgreed] = useState(false);
@@ -77,69 +78,87 @@ function LivePdfForm() {
   };
 
   return (
-  <div className="flex flex-col min-h-screen">
-    <Header />
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-4xl sm:text-2xl font-extrabold text-center text-white pt-48 pb-16 px-11 drop-shadow-lg"
+      >
+        <span className="text-white">Drug Test Appointment</span>
+      </motion.h1>
 
-    {/* Main Content should grow */}
-    <div className="flex flex-row sm:flex-col gap-6 p-6 pt-40 flex-grow">
-      {/* Form */}
-      <form className="w-1/2 sm:w-full bg-white shadow-lg rounded-xl p-6 space-y-6">
-        <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
-        <FormFields formData={formData} handleChange={handleChange} />
-        <SignaturePadField
-          setSignature={(sig) =>
-            setFormData((prev) => ({ ...prev, signature: sig }))
-          }
-        />
-        <div className="flex items-start space-x-2 mt-4 bg-black/10 py-14 rounded-lg">
-          <div className="flex flex-row">
-            <input
-              type="checkbox"
-              id="agreement"
-              name="agreement"
-              checked={agreed}
-              onChange={(e) => setAgreed(e.target.checked)}
-              className="ml-5 size-6 rounded-lg"
-            />
-            <div className="mx-4">
-              <label
-                htmlFor="agreement"
-                className="sm:text-sm text-base text-gray-700 text-justify block"
-              >
-                I have read the{" "}
-                <a
-                  href="/TOS.pdf"
-                  target="_blank"
-                  className="text-blue-600 underline hover:text-blue-800"
+      {/* Main Content should grow */}
+      <div className="flex flex-row sm:flex-col gap-6 p-6 flex-grow pb-48">
+        {/* Form */}
+        <motion.form
+          className="w-1/2 sm:w-full bg-white shadow-lg rounded-xl p-6 space-y-6"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-xl font-bold border-b pb-2">Drug Test Form</h2>
+          <FormFields formData={formData} handleChange={handleChange} />
+          <SignaturePadField
+            setSignature={(sig) =>
+              setFormData((prev) => ({ ...prev, signature: sig }))
+            }
+          />
+          <div className="flex items-start space-x-2 mt-4 bg-black/5 py-8 sm:py-5 rounded-lg">
+            <div className="flex flex-row">
+              <input
+                type="checkbox"
+                id="agreement"
+                name="agreement"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className="ml-3 size-6 rounded-lg"
+              />
+              <div className="mx-4">
+                <label
+                  htmlFor="agreement"
+                  className="sm:text-xs text-base text-black text-justify block"
                 >
-                  Terms and Agreement
-                </a>{" "}
-                and agree that my personal information will be collected and
-                used solely for processing this drug test, kept confidential,
-                and not disclosed to unauthorized parties.
-              </label>
+                  I have read the{" "}
+                  <a
+                    href="/TOS.pdf"
+                    target="_blank"
+                    className="text-blue-600 underline hover:text-blue-800"
+                  >
+                    Terms and Agreement
+                  </a>{" "}
+                  and agree that my personal information will be collected and
+                  used solely for processing this drug test, kept confidential,
+                  and not disclosed to unauthorized parties.
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="pb-4 float-end">
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition left-1/2"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+          <div className="pb-4 float-end">
+            <button
+              type="button"
+              onClick={handleSubmit}
+              className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition left-1/2"
+            >
+              Submit
+            </button>
+          </div>
+        </motion.form>
 
-      {/* PDF Preview */}
-      <PdfPreview pdfUrl={pdfUrl} />
+        {/* PDF Preview */}
+        <motion.div
+          className="w-1/2 sm:w-full"
+          initial={{ opacity: 0, x: 22 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 2 }}
+        >
+          <PdfPreview pdfUrl={pdfUrl} />
+        </motion.div>
+      </div>
+      <Footer />
     </div>
-
-    <Footer />
-  </div>
-);
-
+  );
 }
 
 export default LivePdfForm;
