@@ -9,33 +9,110 @@ import { motion } from "framer-motion";
 
 function LivePdfForm() {
   const [agreed, setAgreed] = useState(false);
-  const handleSubmit = () => {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Mapping of field names to display names
+  const fieldDisplayNames = {
+    firstName: 'First Name',
+    middleName: 'Middle Name',
+    lastName: 'Last Name',
+    age: 'Age',
+    birthdate: 'Birth Date',
+    gender: 'Gender',
+    civilStatus: 'Civil Status',
+    birthRegion: 'Birth Region',
+    birthProvince: 'Birth Province',
+    birthCity: 'Birth City',
+    companyName: 'Company Name',
+    purpose: 'Purpose',
+    otherPurpose: 'Other Purpose',
+    medication: 'Medication',
+    medicationYes: 'If Yes, Please Specify',
+    alcohol: 'Alcohol',
+    validIdType: 'Valid ID Type',
+    otherValidId: 'Other Valid ID',
+    companyNameId: 'Company Name on ID',
+    validIdNumber: 'Valid ID Number',
+    region: 'Region',
+    province: 'Province',
+    city: 'City',
+    barangay: 'Barangay',
+    signature: 'Signature'
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // ✅ Your existing validation
+    const inputs = document.querySelectorAll(
+      "form input, form select, form textarea"
+    );
+
+    for (let input of inputs) {
+      if (!input.value.trim()) {
+        const displayName = fieldDisplayNames[input.name] || input.name || 'field';
+        setErrorMessage(`⚠️ Please fill out the "${displayName}" field.`);
+        input.focus();
+        return;
+      }
+    }
+
     if (!agreed) {
-      alert("⚠️ Please agree to the terms before submitting.");
+      setErrorMessage("⚠️ Please agree to the terms before submitting.");
       return;
     }
 
-    generatePdf(formData);
-    alert("✅ Form submitted and PDF generated!");
+    setErrorMessage(''); // Clear error message if validation passes
+
+    try {
+      // 🚀 Send formData to Express backend
+      const response = await fetch("http://192.168.1.20:5000/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      console.log(result.message);
+
+      // ✅ Still generate the PDF
+      generatePdf(formData);
+
+      setErrorMessage("✅ Form submitted, saved to CSV, and PDF generated!");
+    } catch (error) {
+      console.error("❌ Error submitting form:", error);
+      setErrorMessage("❌ Could not submit form. Please try again.");
+    }
   };
 
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
     lastName: "",
-    address: "",
-    birthdate: "",
     age: "",
-    birthplace: "",
+    birthdate: "",
     gender: "",
     civilStatus: "",
+    birthRegion: "",
+    birthProvince: "",
+    birthCity: "",
     companyName: "",
     purpose: "",
     otherPurpose: "",
+    medication: "",
+    medicationYes: "",
+    alcohol: "",
     validIdType: "",
+    otherValidId: "",
+    companyNameId: "",
     validIdNumber: "",
+    region: "",
+    province: "",
+    city: "",
+    barangay: "",
     signature: "",
     currentDate: new Date().toISOString().split("T")[0],
+    currentTime: new Date().toLocaleTimeString(),
+
   });
 
   const [templatePdf, setTemplatePdf] = useState(null);
@@ -86,7 +163,7 @@ function LivePdfForm() {
         transition={{ duration: 0.8 }}
         className="text-4xl sm:text-2xl font-extrabold text-center text-white pt-48 pb-16 px-11 drop-shadow-lg"
       >
-        <span className="text-white">Drug Test Appointment</span>
+        <span className="text-white">Drug Test Submission</span>
       </motion.h1>
 
       {/* Main Content should grow */}
@@ -135,14 +212,25 @@ function LivePdfForm() {
               </div>
             </div>
           </div>
-          <div className="pb-4 float-end">
-            <button
-              type="button"
-              onClick={handleSubmit}
-              className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition left-1/2"
-            >
-              Submit
-            </button>
+          <div className="pb-4">
+            <div className="flex flex-col items-end gap-2">
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="g-blue-600 text-white px-4 py-2 w-32 rounded bg-blue-700 hover:bg-blue-900 transition"
+              >
+                Submit
+              </button>
+              {errorMessage && (
+                <div className={`text-sm p-3 rounded-lg ${
+                  errorMessage.includes('✅')
+                    ? 'bg-green-100 w-full text-green-700 border border-green-200'
+                    : 'bg-red-100 w-full text-red-700 border border-red-200'
+                } text-center`}>
+                  {errorMessage}
+                </div>
+              )}
+            </div>
           </div>
         </motion.form>
 

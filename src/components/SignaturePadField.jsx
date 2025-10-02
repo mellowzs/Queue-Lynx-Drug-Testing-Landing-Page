@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import SignaturePad from "signature_pad";
 
 function SignaturePadField({ setSignature }) {
@@ -12,10 +12,19 @@ function SignaturePadField({ setSignature }) {
   // Reinitialize signature pad whenever Draw tab is active
   useEffect(() => {
     if (activeTab === "draw" && canvasRef.current) {
-      signaturePadRef.current = new SignaturePad(canvasRef.current, {
-        minWidth: 1,
-        maxWidth: 1,
+      // Set canvas size with proper scaling
+      const canvas = canvasRef.current;
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      canvas.getContext("2d").scale(ratio, ratio);
+
+      signaturePadRef.current = new SignaturePad(canvas, {
+        minWidth: 0.5,
+        maxWidth: 2.5,
         penColor: "rgb(66, 133, 244)",
+        throttle: 16, // Increase smoothness of drawing
+        velocityFilterWeight: 0.7, // Adjust line weight based on drawing speed
       });
     }
   }, [activeTab]);
@@ -36,45 +45,53 @@ function SignaturePadField({ setSignature }) {
     }
   };
 
-  const processImage = (file, thresholdValue) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const offCanvas = document.createElement("canvas");
-        const ctx = offCanvas.getContext("2d");
+  const processImage = useCallback(
+    (file, thresholdValue) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const offCanvas = document.createElement("canvas");
+          const ctx = offCanvas.getContext("2d");
 
-        offCanvas.width = img.width;
-        offCanvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
+          offCanvas.width = img.width;
+          offCanvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
 
-        const imageData = ctx.getImageData(0, 0, offCanvas.width, offCanvas.height);
-        const data = imageData.data;
+          const imageData = ctx.getImageData(
+            0,
+            0,
+            offCanvas.width,
+            offCanvas.height
+          );
+          const data = imageData.data;
 
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
 
-          const brightness = (r + g + b) / 3;
+            const brightness = (r + g + b) / 3;
 
-          // Make bright pixels transparent
-          if (brightness > thresholdValue) {
-            const alpha = 255 - (brightness - thresholdValue) * 5;
-            data[i + 3] = alpha < 0 ? 0 : alpha;
+            // Make bright pixels transparent
+            if (brightness > thresholdValue) {
+              const alpha = 255 - (brightness - thresholdValue) * 5;
+              data[i + 3] = alpha < 0 ? 0 : alpha;
+            }
           }
-        }
 
-        ctx.putImageData(imageData, 0, 0);
-        const transparentDataUrl = offCanvas.toDataURL("image/png");
+          ctx.putImageData(imageData, 0, 0);
+          const transparentDataUrl = offCanvas.toDataURL("image/png");
 
-        setUploadedSignature(transparentDataUrl);
-        setSignature(transparentDataUrl);
+          setUploadedSignature(transparentDataUrl);
+          setSignature(transparentDataUrl);
+        };
+        img.src = event.target.result;
       };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  };
+      reader.readAsDataURL(file);
+    },
+    [setSignature, setUploadedSignature]
+  );
 
   const handleUpload = (e) => {
     e.preventDefault();
@@ -89,7 +106,7 @@ function SignaturePadField({ setSignature }) {
     if (lastFile) {
       processImage(lastFile, threshold);
     }
-  }, [threshold]);
+  }, [threshold, lastFile, processImage]);
 
   const removeUploadedSignature = () => {
     setUploadedSignature(null);
@@ -126,7 +143,15 @@ function SignaturePadField({ setSignature }) {
       {/* Draw Tab */}
       {activeTab === "draw" && (
         <div>
-          <canvas ref={canvasRef} className="border rounded h-40"></canvas>
+          <canvas
+            ref={canvasRef}
+            className="border rounded w-full h-80" // Increased height to h-80 (320px)
+            style={{
+              touchAction: "none", // Prevents scrolling while signing on touch devices
+              maxWidth: "100%",
+              maxHeight: "400px",
+            }}
+          ></canvas>
           <div className="flex gap-2 mt-2">
             <button
               type="button"
@@ -159,7 +184,9 @@ function SignaturePadField({ setSignature }) {
           {/* Show slider only when image is uploaded */}
           {uploadedSignature && (
             <div className="mt-4">
-              <p className="text-sm text-gray-600">Adjust background removal:</p>
+              <p className="text-sm text-gray-600">
+                Adjust background removal:
+              </p>
               <input
                 type="range"
                 min="150"

@@ -1,6 +1,5 @@
 // src/components/PdfPreview.js
 import React from "react";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
@@ -39,7 +38,7 @@ export default function PdfPreview({ pdfUrl }) {
         <iframe
           src={pdfUrl}
           title="PDF Preview"
-          className="w-full h-[1000px] border rounded mb-36"
+          className="w-full h-[1800px] border rounded"
         />
       )}
     </div>
