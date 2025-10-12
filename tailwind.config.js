@@ -31,6 +31,11 @@ module.exports = {
           from: { opacity: "0", transform: "translateX(40px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "25%": { transform: "translateX(-5px)" },
+          "75%": { transform: "translateX(5px)" },
+        },
       },
       backdropFilter: {
         'none': 'none',

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Pages from './Pages';
-import Form from './Pages/Form';
+import Form from './components/LivePdfForm/Form';
 function App() {
   return (
     <Router>

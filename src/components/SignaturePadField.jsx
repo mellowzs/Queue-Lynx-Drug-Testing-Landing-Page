@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import SignaturePad from "signature_pad";
 
-function SignaturePadField({ setSignature }) {
+function SignaturePadField({
+  setSignature,
+  errorField,
+  handleChange,
+  setErrorField,
+}) {
   const canvasRef = useRef(null);
   const signaturePadRef = useRef(null);
   const [uploadedSignature, setUploadedSignature] = useState(null);
@@ -34,6 +39,7 @@ function SignaturePadField({ setSignature }) {
       const dataUrl = signaturePadRef.current.toDataURL("image/png");
       setSignature(dataUrl);
       setUploadedSignature(null);
+      setErrorField("");
     }
   };
 
@@ -115,7 +121,13 @@ function SignaturePadField({ setSignature }) {
   };
 
   return (
-    <div>
+    <div
+      className={`${
+        errorField === "signature"
+          ? "border border-red-600 p-5 bg-red-200 animate-[shake_0.3s_ease-in-out] rounded-xl"
+          : ""
+      }`}
+    >
       <p className="font-semibold mb-2">Signature</p>
 
       {/* Tabs */}
@@ -144,14 +156,21 @@ function SignaturePadField({ setSignature }) {
       {activeTab === "draw" && (
         <div>
           <canvas
+            name="signature"
             ref={canvasRef}
-            className="border rounded w-full h-80" // Increased height to h-80 (320px)
+            className="border-2 border-black bg-white rounded-xl w-full h-80" // Increased height to h-80 (320px)
             style={{
               touchAction: "none", // Prevents scrolling while signing on touch devices
               maxWidth: "100%",
               maxHeight: "400px",
             }}
           ></canvas>
+          {/* ⚠️ Error Message */}
+          {errorField === "signature" && (
+            <p className="text-red-600 text-[12px] mt-1">
+              ⚠️ Please draw your signature.
+            </p>
+          )}
           <div className="flex gap-2 mt-2">
             <button
               type="button"
